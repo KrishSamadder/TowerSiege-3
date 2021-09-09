@@ -6,15 +6,13 @@ const Constraint = Matter.Constraint;
 var engine, world, backgroundImage;
 
 function preload() { 
-  getBackgroundImage();
+backgroundImage = loadImage("light.png");
  }
 
 function setup() {
   createCanvas(800,400);
   engine = Engine.create();
   world = engine.world;
-
-  getBackgroundImage();
 
 ground = new Ground(400, 390, width, 20);
 
@@ -54,7 +52,6 @@ Slingshot = new SlingShot(polygon.body, {x:100, y:200});
 }
 
 function draw() {
-  if(backgroundImage){
     background(backgroundImage);
   Engine.update(engine);
 
@@ -115,20 +112,4 @@ function keyPressed(){
   if(keyCode === 32){
       Slingshot.attach(polygon.body)
   }
-}
-async function getBackgroundImage(){
-  var response = await fetch("http://worldtimeapi.org/api/timezone/Asia/Kolkata");
-  var responseJSON = await response.json()
-console.log(responseJSON)
-var datetime = responseJSON.datetime
-console.log(responseJSON.datetime)
-var hour = datetime.slice(11,13)
-console.log( datetime.slice(11,13))
-if(hour>=06 && hour<=18){
-bg1="light.png";
-}
-else{
-bg1="dark.png";
-}
-backgroundImage=loadImage(bg1);
 }
